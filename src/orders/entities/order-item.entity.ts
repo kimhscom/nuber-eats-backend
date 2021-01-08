@@ -1,4 +1,4 @@
-import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
+import { Field, InputType, ObjectType } from '@nestjs/graphql';
 import { CoreEntity } from 'src/common/entities/core.entity';
 import { Dish } from 'src/restaurants/entities/dish.entity';
 import { Column, Entity, ManyToOne } from 'typeorm';
@@ -9,9 +9,7 @@ export class OrderItemOption {
   @Field(type => String)
   name: string;
   @Field(type => String, { nullable: true })
-  choices: string;
-  @Field(type => Int, { nullable: true })
-  extra?: number;
+  choice: string;
 }
 
 @InputType('OrderItemInputType', { isAbstract: true })
