@@ -33,7 +33,7 @@ export class OrderService {
     @Inject(PUB_SUB) private readonly pubSub: PubSub,
   ) {}
 
-  async crateOrder(
+  async createOrder(
     customer: User,
     { restaurantId, items }: CreateOrderInput,
   ): Promise<CreateOrderOutput> {
@@ -57,7 +57,7 @@ export class OrderService {
         }
         let dishFinalPrice = dish.price;
         for (const itemOption of item.options) {
-          const dishOption = dish.options.find(
+          const dishOption = dish.options?.find(
             dishOption => dishOption.name === itemOption.name,
           );
           if (dishOption) {
@@ -97,8 +97,10 @@ export class OrderService {
       });
       return {
         ok: true,
+        orderId: order.id,
       };
-    } catch {
+    } catch (error) {
+      console.log(error);
       return {
         ok: false,
         error: 'Could not create order.',
